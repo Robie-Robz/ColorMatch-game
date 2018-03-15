@@ -82,28 +82,36 @@ function evaluateSquares(value)
 			// console.log(firstSquareBackground);
 			// console.log("Printing Second");
 			// console.log(SecondSquareBackground);
-			result=strcmp(storeBackground[0], storeBackground[1]);
-			//console.log(result);
-			if(result===0)
-			{
-				firstElement=document.getElementById(storeId[0]);
-				firstElement.style.display="none";
-				secondElement=document.getElementById(storeId[1]);
-				secondElement.style.display="none";
-				// console.log("Same");
-				result=-1;
-				storeBackground.length=0;
-				storeId.length=0;
-				score++;
-				console.log("Score: "+score);
+			if(storeId[0]!==storeId[1]) //prevents from giving score if user clicks on the same square twice
+			{	
+				result=strcmp(storeBackground[0], storeBackground[1]);
+				//console.log(result);
+				if(result===0)
+				{
+					firstElement=document.getElementById(storeId[0]);
+					firstElement.style.display="none";
+					secondElement=document.getElementById(storeId[1]);
+					secondElement.style.display="none";
+					// console.log("Same");
+					result=-1;
+					storeBackground.length=0;
+					storeId.length=0;
+					score++;
+					console.log("Score: "+score);
 
 
+				}	
+				else
+				{
+					storeBackground.length=0;
+					storeId.length=0;
+					score--;
+					console.log("Score: "+score);
+				}
 			}
 			else{
 				storeBackground.length=0;
 				storeId.length=0;
-				score--;
-				console.log("Score: "+score);
 			}
 		
 				clickTracker=0;
