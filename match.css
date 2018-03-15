@@ -4,7 +4,6 @@
 	float:left;
 	padding-bottom: 20%;
 	margin: 1.66%;
-	
 }
 
 body{
@@ -12,6 +11,10 @@ body{
 }
 
 #container{
+
 	margin: 20px auto;
 	width: 600px;
+};
+h1{
+	background: rgb(255, 0, 0);
 }

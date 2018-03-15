@@ -17,97 +17,131 @@ changeSquareColor();
 
 // var clickedColor1;
 // var clickedColor2;
-var firstSquareBackground;
-var firstSquareId;
+var SquareBackground;
+var SquareId;
 var firstElement;
 var SecondSquareBackground;
 var SecondSquareId;
 var secondElement;
 var clickTracker=0;
 var result;
-
+var score=0;
 var storeId=[];
+var storeBackground=[];
 
 // // //while(game===true)
-for(i=0;i<squares.length;i++) //executes 16 times since there are 16 div elements of class square 
-{
-	squares[i].addEventListener("click", first);
+// for(i=0;i<squares.length;i++) //executes 16 times since there are 16 div elements of class square 
+// {
+// 	squares[i].addEventListener("click", first);
 
-	function first(e)
-	{
-			// colorObject[0].objColor=this.style.backgroundColor;
-			// console.log(colorObject[0].objColor);
-			// colorObject[0].squareId=this.getAttribute('id');
-			// console.log(colorObject[0].squareId);
-			firstSquareBackground=this.style.backgroundColor;
-			console.log(firstSquareBackground);
-			firstSquareId=this.getAttribute('id');
-			console.log(firstSquareId);
-			storeId.push(firstSquareId);
-			evaluateSquares(1);
+// 	function first(e)
+// 	{
+// 			// colorObject[0].objColor=this.style.backgroundColor;
+// 			// console.log(colorObject[0].objColor);
+// 			// colorObject[0].squareId=this.getAttribute('id');
+// 			// console.log(colorObject[0].squareId);
+// 			firstSquareBackground=this.style.backgroundColor;
+// 			console.log(firstSquareBackground);
+// 			firstSquareId=this.getAttribute('id');
+// 			console.log(firstSquareId);
+// 			storeId.push(firstSquareId);
+// 			evaluateSquares(1);
 
-			e.stopImmediatePropagation(); //Prevents other listeners of the same event from being called.
-  			this.removeEventListener("click", first);
-   			document.onclick = second;
-	}
+// 			e.stopImmediatePropagation(); //Prevents other listeners of the same event from being called.
+//   			this.removeEventListener("click", first);
+//    			document.onclick = second;
+// 	}
 
-	function second()
-	{
+// 	function second()
+// 	{
 		
-			// colorObject[1].objColor=this.style.backgroundColor;
-			// console.log(colorObject[1].objColor);
-			// colorObject[1].squareId=this.getAttribute('id');
-			// console.log(colorObject[1].squareId);	
-			SecondSquareBackground=this.style.backgroundColor;
-			console.log(SecondSquareBackground);
-			SecondSquareId=this.getAttribute('id');
-			console.log(SecondSquareId);	
-			storeId.push(SecondSquareId);
-			evaluateSquares(1);		
+// 			// colorObject[1].objColor=this.style.backgroundColor;
+// 			// console.log(colorObject[1].objColor);
+// 			// colorObject[1].squareId=this.getAttribute('id');
+// 			// console.log(colorObject[1].squareId);	
+// 			SecondSquareBackground=this.style.backgroundColor;
+// 			console.log(SecondSquareBackground);
+// 			SecondSquareId=this.getAttribute('id');
+// 			console.log(SecondSquareId);	
+// 			storeId.push(SecondSquareId);
+// 			evaluateSquares(1);		
 			
-	}
+// 	}
 	
 
-}
+// }
 function evaluateSquares(value)
 	{
 		clickTracker+=value;
 		if(clickTracker===2)
 		{
 			console.log("Clicked Twice");
-			console.log(storeId[0]);
-			console.log(storeId[1]);
-			result=strcmp(firstSquareBackground,SecondSquareBackground);
+			// console.log(storeId[0]);
+			// console.log(storeId[1]);
+			// console.log("Printing first");
+			// console.log(firstSquareBackground);
+			// console.log("Printing Second");
+			// console.log(SecondSquareBackground);
+			result=strcmp(storeBackground[0], storeBackground[1]);
+			//console.log(result);
 			if(result===0)
 			{
 				firstElement=document.getElementById(storeId[0]);
 				firstElement.style.display="none";
 				secondElement=document.getElementById(storeId[1]);
 				secondElement.style.display="none";
+				// console.log("Same");
+				result=-1;
+				storeBackground.length=0;
+				storeId.length=0;
+				score++;
+				console.log("Score: "+score);
+
+
 			}
-			clickTracker=0;
+			else{
+				storeBackground.length=0;
+				storeId.length=0;
+				score--;
+				console.log("Score: "+score);
+			}
+		
+				clickTracker=0;
+				
+			//storeId.length=0;//empties the array
 		}
+		
 	}
 
-function strcmp(a, b)
-{   
-    return (a<b?-1:(a>b?1:0));  
+function strcmp ( str1, str2 ) {
+
+    return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
+document.getElementById("container").addEventListener("click",function(e) { //Event delegation used to find the clicks on the squares within the "Container"
+// e.target was the clicked element
+    if (e.target && e.target.matches("div"))
+  {
+    console.log("Square element clicked!");
 
-// document.getElementById("container").addEventListener("click",function(e) { //Event delegation used to find the clicks on the squares within the "Container"
-// // e.target was the clicked element
-//     if (e.target && e.target.matches("div.square"))
-//   {
-//     console.log("Square element clicked!");
+    	// firstSquareBackground=this.style.backgroundColor; //result getting error because color is retrieved in name format instead of rgb
+  //   	var element = document.querySelector('.square');
+  //   	var pre = document.getElementById('style');
+		// pre.innerHTML = 'Its background color is: ' + window.getComputedStyle(element).getPropertyValue("background-color");
+		// // console.log(firstSquareBackground);
+		// console.log(pre.innerHTML);
+		// firstSquareId=this.getAttribute('id');
+		// console.log(firstSquareId);
+		SquareBackground = e.target.style.backgroundColor;
+   		console.log(SquareBackground);
+   		storeBackground.push(SquareBackground);
 
-//     colorObject[0].objColor=this.style.backgroundColor;
-//     console.log(colorObject[0].objColor);
-//     colorObject[0].squareId=this.getAttribute('id');
-//     console.log(colorObject[0].squareId);
-//     evaluateSquares(1);
+    	SquareId = e.target.getAttribute('id');
+    	console.log(SquareId);
+		storeId.push(SquareId);
+  		evaluateSquares(1);
 
-//    }
-// });
+   }
+});
 
 
 
