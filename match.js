@@ -3,39 +3,115 @@ colors=generateRandomColor(8);
 var colorsDuplicate=colors.slice(0,8);
 var combinedColors;
 combineColor();
-//var square=document.querySelector("#square");
-
-
-//3 second timer function
-//score function
-
 var squares=document.querySelectorAll(".square");
-changesSquareColor();
+changeSquareColor();
 
-var clickedColor1;
-var clickedColor2;
-//boolean game=true;
-var clickCounter=0;
-//while(game===true)
-for(i=0;i<squares.length;i++)
+// var colorObject= [
+// 					{	objColor:null,
+// 						squareId:null
+// 					},
+// 					{ 	objColor:null,
+// 						squareId:null
+// 					}
+// 				];
+
+// var clickedColor1;
+// var clickedColor2;
+var firstSquareBackground;
+var firstSquareId;
+var firstElement;
+var SecondSquareBackground;
+var SecondSquareId;
+var secondElement;
+var clickTracker=0;
+var result;
+
+var storeId=[];
+
+// // //while(game===true)
+for(i=0;i<squares.length;i++) //executes 16 times since there are 16 div elements of class square 
 {
-	squares[i].addEventListener("click", function(){
-		clickCounter=1;
-		console.log(clickCounter);
-	// 
-		clickedColor1=this.style.backgroundColor;
-		console.log(clickedColor1);
-		// squares[i].addEventListener("click", function(){
-		// // clickedColor2=this.backgroundColor;
-		//  clickCounter=2;
-		// console.log(clickCounter);
-		// });
+	squares[i].addEventListener("click", first);
 
-	});
+	function first(e)
+	{
+			// colorObject[0].objColor=this.style.backgroundColor;
+			// console.log(colorObject[0].objColor);
+			// colorObject[0].squareId=this.getAttribute('id');
+			// console.log(colorObject[0].squareId);
+			firstSquareBackground=this.style.backgroundColor;
+			console.log(firstSquareBackground);
+			firstSquareId=this.getAttribute('id');
+			console.log(firstSquareId);
+			storeId.push(firstSquareId);
+			evaluateSquares(1);
+
+			e.stopImmediatePropagation(); //Prevents other listeners of the same event from being called.
+  			this.removeEventListener("click", first);
+   			document.onclick = second;
+	}
+
+	function second()
+	{
+		
+			// colorObject[1].objColor=this.style.backgroundColor;
+			// console.log(colorObject[1].objColor);
+			// colorObject[1].squareId=this.getAttribute('id');
+			// console.log(colorObject[1].squareId);	
+			SecondSquareBackground=this.style.backgroundColor;
+			console.log(SecondSquareBackground);
+			SecondSquareId=this.getAttribute('id');
+			console.log(SecondSquareId);	
+			storeId.push(SecondSquareId);
+			evaluateSquares(1);		
+			
+	}
+	
 
 }
+function evaluateSquares(value)
+	{
+		clickTracker+=value;
+		if(clickTracker===2)
+		{
+			console.log("Clicked Twice");
+			console.log(storeId[0]);
+			console.log(storeId[1]);
+			result=strcmp(firstSquareBackground,SecondSquareBackground);
+			if(result===0)
+			{
+				firstElement=document.getElementById(storeId[0]);
+				firstElement.style.display="none";
+				secondElement=document.getElementById(storeId[1]);
+				secondElement.style.display="none";
+			}
+			clickTracker=0;
+		}
+	}
 
-function changesSquareColor()
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
+}
+
+// document.getElementById("container").addEventListener("click",function(e) { //Event delegation used to find the clicks on the squares within the "Container"
+// // e.target was the clicked element
+//     if (e.target && e.target.matches("div.square"))
+//   {
+//     console.log("Square element clicked!");
+
+//     colorObject[0].objColor=this.style.backgroundColor;
+//     console.log(colorObject[0].objColor);
+//     colorObject[0].squareId=this.getAttribute('id');
+//     console.log(colorObject[0].squareId);
+//     evaluateSquares(1);
+
+//    }
+// });
+
+
+
+function changeSquareColor()
 {
 	for(i=0;i<squares.length;i++)
 	{
