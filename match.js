@@ -4,7 +4,56 @@ var colorsDuplicate=colors.slice(0,8);
 var combinedColors;
 combineColor();
 var squares=document.querySelectorAll(".square");
-changeSquareColor();
+var message=document.querySelector("h5");
+initiateGame();
+
+function initiateGame()
+{
+	changeSquareColor();
+}
+
+// function startTimer(duration, display) {
+//     var timer = duration, seconds;
+//     setInterval(function () {
+//         //minutes = parseInt(timer / 60, 10)
+//         seconds = parseInt(timer % 60, 10);
+
+//        // minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+//         display.textContent = seconds;
+
+//         if (--timer <0) {
+//             timer = duration;
+//         }
+//         else if(timer==0)
+//         {
+//         	message.textContent="Go!";
+//         	document.querySelector(".flip-container").classList.toggle("flip");
+//         }
+//     }, 1000);
+// }
+
+// window.onload = function () {
+//     var  timeCount= 5,
+//         display = document.querySelector('#time');
+//     startTimer(timeCount, display);
+// };
+
+ // var timeleft = 6;
+ // var downloadTimer = setInterval(function(){
+ //    timeleft--;
+ //    document.getElementById("time").textContent = timeleft;
+ //    if(timeleft < 0)
+ //        clearInterval(downloadTimer);
+ //      else if(timeleft===0)
+ // 	 {
+ //  		message.textContent="Go!";
+
+ //  	}
+ //    },1000);
+
+
 
 // var colorObject= [
 // 					{	objColor:null,
@@ -29,47 +78,9 @@ var score=0;
 var storeId=[];
 var storeBackground=[];
 
-// // //while(game===true)
-// for(i=0;i<squares.length;i++) //executes 16 times since there are 16 div elements of class square 
-// {
-// 	squares[i].addEventListener("click", first);
+var displayNodeValue;
 
-// 	function first(e)
-// 	{
-// 			// colorObject[0].objColor=this.style.backgroundColor;
-// 			// console.log(colorObject[0].objColor);
-// 			// colorObject[0].squareId=this.getAttribute('id');
-// 			// console.log(colorObject[0].squareId);
-// 			firstSquareBackground=this.style.backgroundColor;
-// 			console.log(firstSquareBackground);
-// 			firstSquareId=this.getAttribute('id');
-// 			console.log(firstSquareId);
-// 			storeId.push(firstSquareId);
-// 			evaluateSquares(1);
 
-// 			e.stopImmediatePropagation(); //Prevents other listeners of the same event from being called.
-//   			this.removeEventListener("click", first);
-//    			document.onclick = second;
-// 	}
-
-// 	function second()
-// 	{
-		
-// 			// colorObject[1].objColor=this.style.backgroundColor;
-// 			// console.log(colorObject[1].objColor);
-// 			// colorObject[1].squareId=this.getAttribute('id');
-// 			// console.log(colorObject[1].squareId);	
-// 			SecondSquareBackground=this.style.backgroundColor;
-// 			console.log(SecondSquareBackground);
-// 			SecondSquareId=this.getAttribute('id');
-// 			console.log(SecondSquareId);	
-// 			storeId.push(SecondSquareId);
-// 			evaluateSquares(1);		
-			
-// 	}
-	
-
-// }
 function evaluateSquares(value)
 	{
 		clickTracker+=value;
@@ -89,9 +100,11 @@ function evaluateSquares(value)
 				if(result===0)
 				{
 					firstElement=document.getElementById(storeId[0]);
-					firstElement.style.display="none";
+					// firstElement.style.display="none";
+					firstElement.parentNode.style.visibility="hidden";//removes front and back of first item
 					secondElement=document.getElementById(storeId[1]);
-					secondElement.style.display="none";
+					// secondElement.style.display="none";
+					secondElement.parentNode.style.visibility="hidden";//removes front and back of second item
 					// console.log("Same");
 					result=-1;
 					storeBackground.length=0;
@@ -147,7 +160,12 @@ document.getElementById("container").addEventListener("click",function(e) { //Ev
     	console.log(SquareId);
 		storeId.push(SquareId);
   		evaluateSquares(1);
-
+  		displayNodeValue=e.target.parentNode.parentNode.className;
+  		displayNodeValue.toString();//selects "flip-container" class of the clicked element
+  		console.log(displayNodeValue);
+  		document.getElementsByClassName(displayNodeValue).classList.toggle("flip");
+  		// displayNodeValue=document.getElementById(squareId);
+  		// console.log("The value of node is:"+displayNodeValue);
    }
 });
 
