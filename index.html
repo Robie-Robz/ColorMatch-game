@@ -1,144 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Color match</title>
-	<link rel="stylesheet" type="text/css" href="match.css">
+	<title>Color game</title>
+	<link rel="stylesheet" type="text/css" href="color.css">
 </head>
 <body>
-	<h1>Color match</h1>
+	<h1>The great <br><span id="colorDisplay">RGB</span> <br> color game</h1>
 	<div id="stripe">
-		<h5>The game begins in:<span id="time"></span></h5>
+		<button id="reset">New Colors</button> 
+		<span id="message"></span>
+		<button id="easy">Easy</button>
+		<button id="hard" class="selected">Hard</button>
 	</div>
 	<div id="container">
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="1" class="square"></div>
-			</div>
-		</div>
-
-		
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="2" class="square"></div>
-			</div>
-		</div>
-
-		
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="3" class="square"></div>
-			</div>
-		</div>
-
-		
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="4" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="5" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="6" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="7" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="8" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="9" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="10" class="square"></div>
-			</div>
-		</div>
-
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="11" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="12" class="square"></div>
-			</div>
-		</div>
-
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="13" class="square"></div>
-			</div>
-		</div>
-		
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="14" class="square"></div>
-			</div>
-		</div>
-
-		
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="15" class="square"></div>
-			</div>
-		</div>
-
-
-		<div class="flip-container"  >
-			<div class="flipper">
-				<div class="front"></div>
-				<div id="16" class="square"></div>
-			</div>
-		</div>
-
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
 	</div>
+	<script type="text/javascript" src="colorGame.js"></script>
 
-	<script type="text/javascript" src="match.js"></script>
 </body>
 </html>
