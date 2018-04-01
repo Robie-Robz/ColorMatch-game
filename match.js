@@ -1,3 +1,15 @@
+//var SquareBackground;
+var SquareId;
+var firstElement;
+var secondElement;
+var clickTracker=0;
+var result;
+var score=0;
+var mistakes=0;
+var EliminatedPairs=0; //tracks the pairs that were successfully matched
+var storeId=[];
+var storeBackground=[];
+var displayNodeValue;
 var colors;
 colors=generateRandomColor(8);
 var colorsDuplicate=colors.slice(0,8);
@@ -5,132 +17,106 @@ var combinedColors;
 combineColor();
 var squares=document.querySelectorAll(".square");
 var message=document.querySelector("h5");
+var timeleft=document.getElementById("time");
 initiateGame();
 
 function initiateGame()
 {
 	changeSquareColor();
+	flipSquares();// flip squares to reveal the colors
+	GameTimer();
+
 }
 
-// function startTimer(duration, display) {
-//     var timer = duration, seconds;
-//     setInterval(function () {
-//         //minutes = parseInt(timer / 60, 10)
-//         seconds = parseInt(timer % 60, 10);
 
-//        // minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
+function GameTimer() {
+     var seconds = 5;
+     var finiteNumber = 0;
+     var interval = setInterval(function(){
+         seconds--;
+         timeleft.textContent=seconds;
+         if(seconds === finiteNumber)
+         {
+            flipSquares(); //flip squares to conceal the colors
+            message.textContent="";	
+            clearInterval(interval )
+          }
+    }, 1000);
+ }
 
-//         display.textContent = seconds;
-
-//         if (--timer <0) {
-//             timer = duration;
-//         }
-//         else if(timer==0)
-//         {
-//         	message.textContent="Go!";
-//         	document.querySelector(".flip-container").classList.toggle("flip");
-//         }
-//     }, 1000);
-// }
-
-// window.onload = function () {
-//     var  timeCount= 5,
-//         display = document.querySelector('#time');
-//     startTimer(timeCount, display);
-// };
-
- // var timeleft = 6;
- // var downloadTimer = setInterval(function(){
- //    timeleft--;
- //    document.getElementById("time").textContent = timeleft;
- //    if(timeleft < 0)
- //        clearInterval(downloadTimer);
- //      else if(timeleft===0)
- // 	 {
- //  		message.textContent="Go!";
-
- //  	}
- //    },1000);
-
-
-
-// var colorObject= [
-// 					{	objColor:null,
-// 						squareId:null
-// 					},
-// 					{ 	objColor:null,
-// 						squareId:null
-// 					}
-// 				];
-
-// var clickedColor1;
-// var clickedColor2;
-var SquareBackground;
-var SquareId;
-var firstElement;
-var SecondSquareBackground;
-var SecondSquareId;
-var secondElement;
-var clickTracker=0;
-var result;
-var score=0;
-var storeId=[];
-var storeBackground=[];
-
-var displayNodeValue;
-
+function flipSquares()
+{
+	for(i=0;i<squares.length;i++)
+	{
+		squares[i].parentNode.parentNode.classList.toggle("flip");
+	}
+}
 
 function evaluateSquares(value)
 	{
-		clickTracker+=value;
-		if(clickTracker===2)
+		if(value===-1)//executes if user clicks the same square twice
 		{
-			console.log("Clicked Twice");
-			// console.log(storeId[0]);
-			// console.log(storeId[1]);
-			// console.log("Printing first");
-			// console.log(firstSquareBackground);
-			// console.log("Printing Second");
-			// console.log(SecondSquareBackground);
-			if(storeId[0]!==storeId[1]) //prevents from giving score if user clicks on the same square twice
-			{	
-				result=strcmp(storeBackground[0], storeBackground[1]);
-				//console.log(result);
-				if(result===0)
-				{
-					firstElement=document.getElementById(storeId[0]);
-					// firstElement.style.display="none";
-					firstElement.parentNode.style.visibility="hidden";//removes front and back of first item
-					secondElement=document.getElementById(storeId[1]);
-					// secondElement.style.display="none";
-					secondElement.parentNode.style.visibility="hidden";//removes front and back of second item
-					// console.log("Same");
-					result=-1;
-					storeBackground.length=0;
-					storeId.length=0;
-					score++;
-					console.log("Score: "+score);
+			clickTracker=0;
+			storeBackground.length=0;
+			storeId.length=0;
+			mistakes++;
 
+		}
+		else{
+			clickTracker+=value;
+			if(clickTracker===2)
+			{
+				console.log("Clicked Twice");
+		
+					result=strcmp(storeBackground[0], storeBackground[1]);
+					//console.log(result);
+					if(result===0)
+					{
+						console.log("Same! Eliminating!");
+						firstElement=document.getElementById(storeId[0]);
+						secondElement=document.getElementById(storeId[1]);
+						firstElement.parentNode.style.visibility="hidden";//removes front and back of first item
+						// firstElement.style.pointerEvents = "none";
+						secondElement.parentNode.style.visibility="hidden";//removes front and back of second item
+						// secondElement.style.pointerEvents = "none";
+						// firstElement.parentNode.removeChild(firstElement);//removes front and back of first item
+						// secondElement.parentNode.removeChild(secondElement);//removes front and back of second item
 
-				}	
-				else
-				{
-					storeBackground.length=0;
-					storeId.length=0;
-					score--;
-					console.log("Score: "+score);
-				}
-			}
-			else{
-				storeBackground.length=0;
-				storeId.length=0;
-			}
+						result=-1;
+						storeBackground.length=0;
+						storeId.length=0;
+						score++;
+						EliminatedPairs++;
+						console.log("Score: "+score);
+						console.log("EliminatedPairs: "+EliminatedPairs);
+
+					}	
+					else
+					{
+						firstElement=document.getElementById(storeId[0]);
+						secondElement=document.getElementById(storeId[1]);
+						firstElement.parentNode.parentNode.classList.toggle("flip");
+						secondElement.parentNode.parentNode.classList.toggle("flip");
+						storeBackground.length=0;
+						storeId.length=0;
+						score--;
+						mistakes++;
+						console.log("Score: "+score);
+					}
 		
 				clickTracker=0;
 				
-			//storeId.length=0;//empties the array
 		}
+		
+		}
+		
+		if(EliminatedPairs===8 && score===8)
+		message.textContent="High Score!";
+
+		else if(EliminatedPairs===8) //When game finishes
+		message.textContent="Your score is: "+score+" Mistakes: "+mistakes;
+
+		
 		
 	}
 
@@ -138,34 +124,40 @@ function strcmp ( str1, str2 ) {
 
     return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
+
+
 document.getElementById("container").addEventListener("click",function(e) { //Event delegation used to find the clicks on the squares within the "Container"
 // e.target was the clicked element
     if (e.target && e.target.matches("div"))
   {
-    console.log("Square element clicked!");
+    	console.log("Square element clicked!");
+    	
+    	if(e.target.parentNode.style.visibility==="hidden") //prevents clicking on elready removed element
+    		evaluateSquares(-1);
 
-    	// firstSquareBackground=this.style.backgroundColor; //result getting error because color is retrieved in name format instead of rgb
-  //   	var element = document.querySelector('.square');
-  //   	var pre = document.getElementById('style');
-		// pre.innerHTML = 'Its background color is: ' + window.getComputedStyle(element).getPropertyValue("background-color");
-		// // console.log(firstSquareBackground);
-		// console.log(pre.innerHTML);
-		// firstSquareId=this.getAttribute('id');
-		// console.log(firstSquareId);
-		SquareBackground = e.target.style.backgroundColor;
-   		console.log(SquareBackground);
-   		storeBackground.push(SquareBackground);
+		if(e.target.className==="front")
+		{
+			e.target.parentNode.parentNode.classList.toggle("flip");
+			// SquareBackground = e.target.nextElementSibling.style.backgroundColor;
+	  //  		console.log(SquareBackground);
+   // 			storeBackground.push(SquareBackground);
 
-    	SquareId = e.target.getAttribute('id');
-    	console.log(SquareId);
-		storeId.push(SquareId);
-  		evaluateSquares(1);
-  		displayNodeValue=e.target.parentNode.parentNode.className;
-  		displayNodeValue.toString();//selects "flip-container" class of the clicked element
-  		console.log(displayNodeValue);
-  		document.getElementsByClassName(displayNodeValue).classList.toggle("flip");
-  		// displayNodeValue=document.getElementById(squareId);
-  		// console.log("The value of node is:"+displayNodeValue);
+   			storeBackground.push(e.target.nextElementSibling.style.backgroundColor);
+
+    		SquareId = e.target.nextElementSibling.getAttribute('id');
+	    	console.log(SquareId);
+			storeId.push(SquareId);
+  			evaluateSquares(1);
+  			displayNodeValue=e.target.parentNode.parentNode.className; //selects "flip-container" class of the clicked element
+  			console.log(displayNodeValue);
+  		}
+  		else//if user clicks on the same square twice
+  		{
+  			e.target.parentNode.parentNode.classList.toggle("flip");
+  			evaluateSquares(-1);
+
+  		}
+		
    }
 });
 

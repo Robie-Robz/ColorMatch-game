@@ -70,10 +70,13 @@ h5{
 		transform: rotateY(180deg);
 	}*/
 
-.flip-container:hover .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+/*.flip-container:hover .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}*/
+
+.flip-container.flipper, .flip-container.flipper, .flip-container.flip .flipper {
 	transform: rotateY(180deg);
 }
-
 
 .front, .square {
 	
