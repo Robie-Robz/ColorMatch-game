@@ -62,6 +62,12 @@ function evaluateSquares(value)
 			mistakes++;
 
 		}
+		else if(value===-2)
+		{
+			clickTracker=0;
+			storeBackground.length=0;
+			storeId.length=0;
+		}
 		else{
 			clickTracker+=value;
 			if(clickTracker===2)
@@ -133,7 +139,7 @@ document.getElementById("container").addEventListener("click",function(e) { //Ev
     	console.log("Square element clicked!");
     	
     	if(e.target.parentNode.style.visibility==="hidden") //prevents clicking on elready removed element
-    		evaluateSquares(-1);
+    		evaluateSquares(-2);
 
 		if(e.target.className==="front")
 		{
